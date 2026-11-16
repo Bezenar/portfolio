@@ -1,0 +1,107 @@
+@use "./variables.scss" as vars;
+
+$dir: (
+  'row': row,
+  'column': column,
+  'row-rev': row-reverse,
+  'col-rev': column-reverse
+);
+
+$jc: (
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'sb': space-between,
+  'sa': space-around,
+  'se': space-evenly
+);
+
+$ai: (
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'stretch': stretch,
+  'baseline': baseline
+);
+
+$ac: (
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'stretch': stretch,
+  'sb': space-between,
+  'sa': space-around,
+  'se': space-evenly
+);
+
+$as:(
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'stretch': stretch,
+  'baseline': baseline
+);
+
+$grow: 1, 2, 3, 4, 5;
+$shrink: 1, 2, 3, 4, 5;
+
+.flex {
+  display: flex;
+
+  .wrap {
+    flex-wrap: wrap;
+  }
+
+  .no-wrap {
+    flex-wrap: nowrap;
+  }
+
+  @each $dir-name, $dir-value in $dir {
+    &.dir-#{$dir-name} {
+      flex-direction: $dir-value;
+    }
+  }
+
+  @each $jc-name, $jc-value in $jc {
+    &.jc-#{$jc-name} {
+      justify-content: $jc-value;
+    }
+  }
+
+  @each $ai-name, $ai-value in $ai {
+    &.ai-#{$ai-name} {
+      align-items: $ai-value;
+    }
+  }
+
+  @each $ac-name, $ac-value in $ac {
+    &.ac-#{$ac-name} {
+      align-content: $ac-value;
+    }
+  }
+
+  @each $as-name, $as-value in $as {
+    &.as-#{$as-name} {
+      align-self: $as-value;
+    }
+  }
+  @each $grow-value in $grow {
+    .grow-#{$grow-value} {
+      flex-grow: $grow-value;
+    }
+  }
+
+  @each $shrink-value in $shrink {
+    .shrink-#{$shrink-value} {
+      flex-shrink: $shrink-value;
+    }
+  }
+
+  &.gap {
+    @each $gap-value in vars.$space-steps {
+      &-#{$gap-value} {
+        gap: $gap-value * vars.$size-step;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@portfolio/ui-tokens",
+  "version": "1.0.0",
+  "private": true,
+  "license": "ISC",
+  "author": "Maxim Bezhenar",
+  "type": "module",
+  "exports": {
+    "./utility": {
+      "import": "./src/utility/index.css"
+    }
+  },
+  "scripts": {
+    "build:utility": "sass src/utility/index.scss dist/utility.css --no-source-map --style=compressed",
+    "dev:utility": "sass --watch src/utility/index.scss _temp/utility.css"
+  },
+  "devDependencies": {
+    "sass": "1.108.2"
+  }
+}

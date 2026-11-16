@@ -1,0 +1,23 @@
+{
+  "name": "portfolio",
+  "workspaces": [
+    "packages/*",
+    "mfe/*",
+    "apps/*"
+  ],
+  "version": "1.0.0",
+  "description": "My personal playground as portfolio",
+  "keywords": [
+    "portfolio"
+  ],
+  "bugs": {
+    "url": "https://github.com/Bezenar/portfolio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bezenar/portfolio.git"
+  },
+  "license": "ISC",
+  "author": "Maxim Bezhenar",
+  "type": "module"
+}

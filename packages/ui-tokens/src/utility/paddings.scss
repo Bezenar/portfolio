@@ -1,0 +1,33 @@
+@use "variables" as vars;
+
+.p {
+  @each $directionName, $direction in vars.$directions {
+    @each $step in vars.$space-steps {
+      &#{$direction}-#{$step} {
+        padding-#{$directionName}: $step * vars.$size-step;
+      }
+    }
+  }
+
+  @each $axis in vars.$axis-directions {
+    @each $step in vars.$space-steps {
+      &#{$axis}-#{$step} {
+        @if $axis == x {
+          padding-left: $step * vars.$size-step;
+          padding-right: $step * vars.$size-step;
+        } @else if $axis == y {
+          padding-top: $step * vars.$size-step;
+          padding-bottom: $step * vars.$size-step;
+        }
+      }
+    }
+  }
+
+  &a {
+    @each $step in vars.$space-steps {
+      &-#{$step} {
+        padding: $step * vars.$size-step;
+      }
+    }
+  }
+}
