@@ -1,7 +1,8 @@
 {
   "name": "@portfolio/ui-tokens",
-  "version": "1.0.0",
   "private": true,
+  "version": "1.0.0",
+  "description": "UI tokens for the portfolio project",
   "license": "ISC",
   "author": "Maxim Bezhenar",
   "type": "module",
