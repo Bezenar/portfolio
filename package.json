@@ -6,7 +6,7 @@
         "server"
     ],
     "scripts": {
-        "dev:docker": "tsx --conditions=development scripts/docker-dev.ts"
+        "dev": "tsx --conditions=development scripts/start-dev.ts"
     },
     "devDependencies": {
         "@portfolio/core": "1.0.0",
