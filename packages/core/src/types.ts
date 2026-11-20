@@ -1,4 +1,3 @@
-// TODO : EXTRACT TO A SEPARATE PACKAGE
 export type T_Config = {
     IS_DEV: boolean;
     IS_PROD: boolean;

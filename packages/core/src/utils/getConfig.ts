@@ -2,7 +2,6 @@ import { T_Config } from '../types.js';
 import getRootDir from './getRootDir.js';
 import path from 'node:path';
 
-// TODO : EXTRACT TO A SEPARATE PACKAGE
 export default function getConfig(): T_Config {
     return {
         IS_DEV: process.env.NODE_ENV !== 'production',
