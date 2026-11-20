@@ -1,0 +1,22 @@
+services:
+    dev:
+        build:
+            context: ..
+            dockerfile: docker/Dockerfile.dev
+        init: true
+        environment:
+            HOST: 0.0.0.0
+            NODE_OPTIONS: --dns-result-order=ipv4first
+        ports:
+            - '127.0.0.1:${DEV_PORT:-3000}:3000'
+        develop:
+            watch:
+                - action: sync
+                  path: ..
+                  target: /workspace
+                  ignore:
+                      - .git/
+                      - node_modules/
+                      - '**/node_modules/'
+                      - '**/dist/'
+                      - '**/_temp/'

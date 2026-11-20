@@ -1,0 +1,8 @@
+FROM node:24
+
+WORKDIR /workspace
+COPY . .
+RUN npm ci
+
+ENV NODE_ENV=development
+CMD ["npm", "run", "dev:docker"]
