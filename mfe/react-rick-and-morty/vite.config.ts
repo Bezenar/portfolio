@@ -7,6 +7,7 @@ const port = JSON.parse(readFileSync('./package.json', 'utf-8')).app_meta_data.d
 
 // https://vite.dev/config/
 export default defineConfig({
+    base: '/mfe/react-rick-and-morty/',
     plugins: [react()],
     server: {
         port: port,

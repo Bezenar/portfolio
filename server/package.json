@@ -7,14 +7,14 @@
     "author": "Maxim Bezhenar",
     "type": "module",
     "scripts": {
-        "dev": "tsx --watch ./src/server.ts",
-        "build": "tsc -p tsconfig.json"
+        "dev": "tsx watch --include \"../packages/core/src/**\" --conditions=development ./src/server.ts"
     },
     "dependencies": {
         "@fastify/cookie": "11.1.5",
         "@fastify/http-proxy": "11.6.9",
         "@fastify/rate-limit": "11.2.2",
         "@fastify/static": "10.1.11",
+        "@portfolio/core": "1.0.0",
         "fastify": "5.12.8"
     },
     "devDependencies": {

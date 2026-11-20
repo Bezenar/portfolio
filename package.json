@@ -5,6 +5,15 @@
         "mfe/*",
         "server"
     ],
+    "scripts": {
+        "dev:docker": "tsx --conditions=development scripts/docker-dev.ts"
+    },
+    "devDependencies": {
+        "@portfolio/core": "1.0.0",
+        "@types/node": "26.6.6",
+        "tsx": "4.23.15",
+        "typescript": "7.0.2"
+    },
     "version": "1.0.0",
     "description": "My personal playground as portfolio",
     "keywords": [

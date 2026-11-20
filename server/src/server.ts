@@ -4,9 +4,8 @@ import cookie from '@fastify/cookie';
 import rateLimit from '@fastify/rate-limit';
 import fastifyStatic from '@fastify/static';
 import { readFileSync } from 'node:fs';
-import getConfig from './utils/getConfig.js';
+import { getConfig, prettyLog } from '@portfolio/core';
 import devMfeProxy from './dev-mfe-proxy.js';
-import prettyLog from './utils/prettyLog.js';
 
 const CONFIG = getConfig();
 

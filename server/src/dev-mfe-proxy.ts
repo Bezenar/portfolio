@@ -1,7 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 import httpProxy from '@fastify/http-proxy';
-import getConfig from './utils/getConfig.js';
-import getServicesManifest from './utils/getServicesManifest.js';
+import { getConfig, getServicesManifest } from '@portfolio/core';
 
 const devMfeProxy: FastifyPluginAsync = async (server) => {
     const CONFIG = getConfig();
