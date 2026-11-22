@@ -8,7 +8,11 @@
     "scripts": {
         "dev": "tsx --conditions=development scripts/start-dev.ts",
         "build": "tsx --conditions=development scripts/build-prod.ts",
-        "start": "NODE_ENV=production node server/dist/server.js"
+        "start": "NODE_ENV=production node server/dist/server.js",
+        "docker:dev": "docker compose -p portfolio-dev -f docker/compose.yaml up --build --watch",
+        "docker:dev-down": "docker compose -p portfolio-dev -f docker/compose.yaml down",
+        "docker:prod": "docker compose -p portfolio-prod -f docker/compose.prod.yaml up --build",
+        "docker:prod-down": "docker compose -p portfolio-prod -f docker/compose.prod.yaml down"
     },
     "devDependencies": {
         "@portfolio/core": "1.0.0",

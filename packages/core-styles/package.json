@@ -1,0 +1,24 @@
+{
+    "name": "@portfolio/core-styles",
+    "private": true,
+    "version": "1.0.0",
+    "description": "Shared styles for the portfolio project",
+    "license": "ISC",
+    "author": "Maxim Bezhenar",
+    "type": "module",
+    "exports": {
+        "./utility/*": {
+            "development": {
+                "import": "./src/utility/*"
+            },
+            "import": "./src/utility/index.scss"
+        }
+    },
+    "scripts": {
+        "build:utility": "sass src/utility/index.scss dist/utility.css --no-source-map --style=compressed",
+        "dev:utility": "sass --watch src/utility/index.scss _temp/utility.css"
+    },
+    "devDependencies": {
+        "sass": "1.108.2"
+    }
+}

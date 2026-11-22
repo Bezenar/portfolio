@@ -12,33 +12,36 @@ shared utilities and styles live in separate packages.
 | [`mfe/shell/`](./mfe/shell/)                               | Main page built with Vite and TypeScript              |
 | [`mfe/react-rick-and-morty/`](./mfe/react-rick-and-morty/) | Example React application                             |
 | [`packages/core/`](./packages/core/)                       | Configuration, service manifest, and shared utilities |
-| [`packages/ui-tokens/`](./packages/ui-tokens/)             | Shared Sass utilities                                 |
+| [`packages/core-styles/`](./packages/core-styles/)         | Shared Sass utilities                                 |
 | [`scripts/start-dev.ts`](./scripts/start-dev.ts)           | Development server and MFE launcher                   |
+| [`scripts/build-prod.ts`](./scripts/build-prod.ts)         | Production build and static file preparation          |
 | [`docker/`](./docker/)                                     | Docker development and production configurations      |
 
 ## Quick start with Docker
 
-Docker and Docker Compose with Watch support are required. From the repository
-root, run:
+Docker, Docker Compose with Watch support, and npm are required for these
+scripts. From the repository root, run:
 
 ```bash
-docker compose -f docker/compose.yaml up --build --watch
+npm run docker:dev
 ```
 
 Open <http://localhost:3000/>. The health check is available at
-<http://localhost:3000/health>. Press `Ctrl+C` to stop.
+<http://localhost:3000/health>. Press `Ctrl+C` to stop, then remove the
+development container and network with `npm run docker:dev-down`.
 
 Compose starts one container with the server and applications in `mfe/`.
 Source changes are synced to the container; local `node_modules` are not used.
 The server port is exposed only on the local machine. To change the host port:
 
 ```bash
-DEV_PORT=3001 docker compose -f docker/compose.yaml up --build --watch
+DEV_PORT=3001 npm run docker:dev
 ```
 
 After adding an application or changing dependencies, update the lockfile,
-stop the environment, and run the command with `--build` again. The launcher
-reads the application manifest at startup.
+stop the environment, and run `npm run docker:dev` again; it rebuilds the
+image. The launcher reads the application manifest at startup, so changes to
+the manifest or launcher also require a restart.
 
 ## Local development without Docker
 
@@ -63,8 +66,9 @@ npm run dev --workspace react-rick-and-morty
 ```
 
 By default, the server listens on port `3000`, shell on `4000`, and the React
-application on `5001`. Vite ports are read from `app_meta_data.devPort`; if a
-port is occupied, the application will not automatically switch to another.
+application on `5001`. The included Vite applications read their ports from
+`app_meta_data.devPort` and use `strictPort`, so they do not automatically
+switch ports if one is occupied.
 
 ## Development routes
 
@@ -82,7 +86,8 @@ a limit of 200 requests per minute, and the `Content-Security-Policy` and
 
 ## Adding an MFE
 
-1. Create an application in `mfe/<directory-name>/` and add a `dev` script.
+1. Create an application in `mfe/<directory-name>/` with `dev` and `build`
+   scripts. The production build must produce `dist/index.html`.
 2. Add metadata to its `package.json`, for example:
 
     ```json
@@ -97,9 +102,10 @@ a limit of 200 requests per minute, and the `Content-Security-Policy` and
     }
     ```
 
-3. Configure the dev server to use the specified port and the base path
-   `/mfe/<directory-name>/`. The proxy preserves this prefix when forwarding
-   requests. The base path for `shell` is `/`.
+3. Configure Vite to use the specified port with `strictPort: true`, and set
+   the base path to `/mfe/<directory-name>/` for development and production.
+   The proxy preserves this prefix when forwarding requests. The base path
+   for `shell` is `/`.
 4. Update the dependencies and lockfile, then restart the dev environment.
 
 ### Metadata fields
@@ -130,30 +136,34 @@ ports, the manifest will not be registered.
 | `PORT`     | `3000`    | Fastify port                                                             |
 | `HOST`     | `0.0.0.0` | Fastify listening address                                                |
 
-Docker sets `NODE_ENV=development` and `HOST=0.0.0.0` in the container.
-`DEV_PORT` changes only the published host port, not the port inside the
-container.
+The development image sets `NODE_ENV=development`; the production image sets
+`NODE_ENV=production`. Both listen on `0.0.0.0:3000` inside the container.
+`DEV_PORT` and `PROD_PORT` change only the respective published host ports.
 
 ## Production with Docker
 
 Build and start the production container:
 
 ```bash
-docker compose -f docker/compose.prod.yaml up --build
+npm run docker:prod
 ```
 
 Open <http://localhost:3000/>. The server is published on the local machine
 only. To use another host port, set `PROD_PORT`:
 
 ```bash
-PROD_PORT=3001 docker compose -f docker/compose.prod.yaml up --build
+PROD_PORT=3001 npm run docker:prod
 ```
 
 Press `Ctrl+C` to stop, then remove the container and network with:
 
 ```bash
-docker compose -f docker/compose.prod.yaml down
+npm run docker:prod-down
 ```
+
+The development and production scripts use separate Compose project names.
+Use different host ports if running both at the same time. The `down` scripts
+remove their project's containers and network, but not images or volumes.
 
 The multi-stage image builds the applications separately from the runtime
 image. The runtime contains the compiled server and core package, public
@@ -173,17 +183,19 @@ npm start
 The build compiles `@portfolio/core` and the server, builds every application
 in `mfe/`, and copies their output into `server/public`. Shell files are at
 the public root; other applications are under `mfe/<directory-name>/`. The
-`mfe` directory name is reserved in the shell build. The generated
-`server/public` directory is replaced on every successful build; do not keep
-manually created files there. Server JavaScript remains in `server/dist` and
-is not served as static content.
+`mfe` directory name is reserved in the shell build. After compiling the
+applications, the build replaces `server/public`; do not keep manually
+created files there. Server JavaScript remains in `server/dist` and is not
+served as static content.
 
 `npm start` sets `NODE_ENV=production` and starts the compiled server (the
 command uses POSIX shell syntax). Open <http://localhost:3000/> for shell,
 <http://localhost:3000/mfe/react-rick-and-morty/> for the React MFE, and
 <http://localhost:3000/health> for the health check. Unknown shell navigation
-URLs fall back to shell's `index.html`; missing assets and unknown API or MFE
-paths return 404. MFE-specific client-side route fallback is not implemented.
+URLs fall back to shell's `index.html` for HTML requests without a dot in the
+last path segment. Missing files under `/assets` or with a dot in the last
+path segment, and unknown API or MFE paths, return 404. MFE-specific
+client-side route fallback is not implemented.
 
 To check the running server manually:
 
@@ -203,6 +215,6 @@ launcher or manifest require restarting the environment. Production uses the
 built package.
 
 The Sass utilities can also be built separately with
-`npm run build:utility --workspace @portfolio/ui-tokens`.
+`npm run build:utility --workspace @portfolio/core-styles`.
 
 License: ISC.
