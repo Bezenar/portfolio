@@ -9,7 +9,7 @@ export type T_Config = {
     SERVER_DIR: string;
     MFE_DIR: string;
     PACKAGES_DIR: string;
-    BUILD_OUTPUT_DIR: string;
+    PUBLIC_DIR: string;
 };
 
 export type T_ServiceManifestItem = {

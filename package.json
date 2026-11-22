@@ -6,7 +6,9 @@
         "server"
     ],
     "scripts": {
-        "dev": "tsx --conditions=development scripts/start-dev.ts"
+        "dev": "tsx --conditions=development scripts/start-dev.ts",
+        "build": "tsx --conditions=development scripts/build-prod.ts",
+        "start": "NODE_ENV=production node server/dist/server.js"
     },
     "devDependencies": {
         "@portfolio/core": "1.0.0",

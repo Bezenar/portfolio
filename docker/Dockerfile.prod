@@ -1,0 +1,29 @@
+FROM node:24-slim AS build
+
+WORKDIR /workspace
+COPY . .
+RUN npm ci
+RUN npm run build
+
+FROM node:24-slim AS dependencies
+
+WORKDIR /workspace
+COPY package.json package-lock.json ./
+COPY packages/core/package.json ./packages/core/package.json
+COPY server/package.json ./server/package.json
+RUN npm ci --omit=dev --workspace @portfolio/core --workspace @portfolio/server
+
+FROM node:24-slim AS production
+
+WORKDIR /workspace
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=3000
+COPY --from=dependencies /workspace ./
+COPY --from=build /workspace/packages/core/dist ./packages/core/dist
+COPY --from=build /workspace/server/dist ./server/dist
+COPY --from=build /workspace/server/public ./server/public
+
+USER node
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD node -e "fetch('http://127.0.0.1:' + (process.env.PORT || 3000) + '/health').then(r => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1))"
+CMD ["node", "server/dist/server.js"]

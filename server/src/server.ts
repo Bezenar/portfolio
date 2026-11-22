@@ -3,7 +3,6 @@ import path from 'node:path';
 import cookie from '@fastify/cookie';
 import rateLimit from '@fastify/rate-limit';
 import fastifyStatic from '@fastify/static';
-import { readFileSync } from 'node:fs';
 import { getConfig, prettyLog } from '@portfolio/core';
 import devMfeProxy from './dev-mfe-proxy.js';
 
@@ -30,16 +29,14 @@ server.get('/health', () => {
     return { status: 'ok' };
 });
 
-// Return Shell application static files.
 if (CONFIG.IS_DEV) {
     server.register(devMfeProxy);
 } else {
-    // TODO : ENSURE THAT STATIC FILES ARE SERVED CORRECTLY IN PRODUCTION MODE
     server.register(fastifyStatic, {
-        root: CONFIG.BUILD_OUTPUT_DIR,
+        root: CONFIG.PUBLIC_DIR,
         prefix: '/',
         index: ['index.html'],
-        wildcard: true, // Enable not found handler
+        wildcard: true,
     });
 }
 
@@ -47,17 +44,16 @@ server.setNotFoundHandler((req, reply) => {
     const isApi = req.url.startsWith(CONFIG.API_PREFIX);
     const isMfe = req.url.startsWith(CONFIG.MFE_PREFIX);
 
-    // If the request is not a GET or is for the API or MFE, return 404.
-    if (req.method !== 'GET' || isApi || isMfe) {
-        // TODO : ADJUST ERROR FOR GRACEFUL HANDLING
-        reply.status(404).send({ error: 'Not Found' });
-        return;
+    const pathname = req.url.split('?')[0] ?? '';
+    const isAsset = pathname === '/assets' || pathname.startsWith('/assets/');
+    const isNavigation =
+        req.headers.accept?.includes('text/html') && !isAsset && !path.basename(pathname).includes('.');
+
+    if (CONFIG.IS_PROD && (req.method === 'GET' || req.method === 'HEAD') && !isApi && !isMfe && isNavigation) {
+        return reply.header('Cache-Control', 'no-cache').sendFile('index.html');
     }
 
-    // TODO : ENSURE THAT STATIC FILES ARE SERVED CORRECTLY IN PRODUCTION MODE
-    const html = readFileSync(path.join(CONFIG.BUILD_OUTPUT_DIR, 'index.html'), 'utf-8');
-
-    return reply.type('text/html').header('Cache-Control', 'no-cache').send(html);
+    return reply.status(404).send({ error: 'Not Found' });
 });
 
 server.listen({ port: CONFIG.PORT, host: CONFIG.HOST }, (err) => {

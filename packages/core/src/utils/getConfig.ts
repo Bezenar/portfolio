@@ -14,6 +14,6 @@ export default function getConfig(): T_Config {
         SERVER_DIR: path.resolve(getRootDir(), 'server'),
         MFE_DIR: path.resolve(getRootDir(), 'mfe'),
         PACKAGES_DIR: path.resolve(getRootDir(), 'packages'),
-        BUILD_OUTPUT_DIR: path.resolve(getRootDir(), 'server/dist'),
+        PUBLIC_DIR: path.resolve(getRootDir(), 'server/public'),
     };
 }

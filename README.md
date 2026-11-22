@@ -14,7 +14,7 @@ shared utilities and styles live in separate packages.
 | [`packages/core/`](./packages/core/)                       | Configuration, service manifest, and shared utilities |
 | [`packages/ui-tokens/`](./packages/ui-tokens/)             | Shared Sass utilities                                 |
 | [`scripts/start-dev.ts`](./scripts/start-dev.ts)           | Development server and MFE launcher                   |
-| [`docker/`](./docker/)                                     | Docker development configuration                      |
+| [`docker/`](./docker/)                                     | Docker development and production configurations      |
 
 ## Quick start with Docker
 
@@ -134,24 +134,75 @@ Docker sets `NODE_ENV=development` and `HOST=0.0.0.0` in the container.
 `DEV_PORT` changes only the published host port, not the port inside the
 container.
 
-## Checks and builds
+## Production with Docker
 
-Run all commands from the repository root:
+Build and start the production container:
 
 ```bash
-# Build the applications and Sass utilities
-npm run build --workspace @portfolio/shell
-npm run build --workspace react-rick-and-morty
-npm run build:utility --workspace @portfolio/ui-tokens
+docker compose -f docker/compose.prod.yaml up --build
 ```
+
+Open <http://localhost:3000/>. The server is published on the local machine
+only. To use another host port, set `PROD_PORT`:
+
+```bash
+PROD_PORT=3001 docker compose -f docker/compose.prod.yaml up --build
+```
+
+Press `Ctrl+C` to stop, then remove the container and network with:
+
+```bash
+docker compose -f docker/compose.prod.yaml down
+```
+
+The multi-stage image builds the applications separately from the runtime
+image. The runtime contains the compiled server and core package, public
+files, and production dependencies; it runs as a non-root user. Docker checks
+the `/health` endpoint to report container health. Source changes require
+rebuilding the image.
+
+## Production build without Docker
+
+From the repository root, build and start the application:
+
+```bash
+npm run build
+npm start
+```
+
+The build compiles `@portfolio/core` and the server, builds every application
+in `mfe/`, and copies their output into `server/public`. Shell files are at
+the public root; other applications are under `mfe/<directory-name>/`. The
+`mfe` directory name is reserved in the shell build. The generated
+`server/public` directory is replaced on every successful build; do not keep
+manually created files there. Server JavaScript remains in `server/dist` and
+is not served as static content.
+
+`npm start` sets `NODE_ENV=production` and starts the compiled server (the
+command uses POSIX shell syntax). Open <http://localhost:3000/> for shell,
+<http://localhost:3000/mfe/react-rick-and-morty/> for the React MFE, and
+<http://localhost:3000/health> for the health check. Unknown shell navigation
+URLs fall back to shell's `index.html`; missing assets and unknown API or MFE
+paths return 404. MFE-specific client-side route fallback is not implemented.
+
+To check the running server manually:
+
+```bash
+curl -i http://localhost:3000/health
+curl -i http://localhost:3000/
+curl -i http://localhost:3000/mfe/react-rick-and-morty/
+curl -i http://localhost:3000/assets/missing.js
+```
+
+The first three requests should return `200`; the missing file should return
+`404`. Rebuild before testing changes to the server or applications.
 
 In development, the server and launcher import `@portfolio/core` directly
 from its TypeScript source. The server watches for changes; changes to the
 launcher or manifest require restarting the environment. Production uses the
 built package.
 
-**Production static serving is not complete.** The server expects files in
-`server/dist`, while Vite builds shell into `mfe/shell/dist` by default. The
-shell build is not yet copied to the server directory automatically.
+The Sass utilities can also be built separately with
+`npm run build:utility --workspace @portfolio/ui-tokens`.
 
 License: ISC.

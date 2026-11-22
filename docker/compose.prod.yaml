@@ -1,0 +1,8 @@
+services:
+    prod:
+        build:
+            context: ..
+            dockerfile: docker/Dockerfile.prod
+        init: true
+        ports:
+            - '127.0.0.1:${PROD_PORT:-3000}:3000'
