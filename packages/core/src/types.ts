@@ -19,6 +19,7 @@ export type T_ServiceManifestItem = {
     route: string;
     framework: string;
     src: string;
+    directory: string;
     devPort: number;
 };
 

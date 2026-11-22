@@ -4,6 +4,7 @@
         "title": "React Rick and Morty",
         "route": "/react-rick-and-morty",
         "framework": "react",
+        "src": "/mfe/react-rick-and-morty/",
         "devPort": 5001
     },
     "private": true,

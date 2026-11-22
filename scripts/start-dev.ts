@@ -77,7 +77,7 @@ class DevProcesses {
 
     runServices() {
         for (const service of this.services) {
-            this.start(service.name, service.src);
+            this.start(service.name, service.directory);
         }
     }
 }

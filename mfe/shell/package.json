@@ -4,6 +4,7 @@
         "title": "Shell",
         "route": "/shell",
         "framework": "vite",
+        "src": "/",
         "devPort": 4000
     },
     "private": true,

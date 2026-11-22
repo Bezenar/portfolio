@@ -24,7 +24,7 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
 
             if (!isValidAppMetaData(pkgJson.app_meta_data)) {
                 prettyLog(
-                    `Invalid app metadata for ${app.name}. Missed one or more required fields (title, route, framework, devPort). Skipping...`,
+                    `Invalid app metadata for ${app.name}. Expected strings for title, route, framework and src, and an integer devPort between 1 and 65535. Skipping...`,
                     'error',
                 );
                 continue;
@@ -36,7 +36,8 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
                 title: pkgJson.app_meta_data.title,
                 route: pkgJson.app_meta_data.route,
                 framework: pkgJson.app_meta_data.framework,
-                src: path.join(app.parentPath, app.name),
+                src: pkgJson.app_meta_data.src,
+                directory: path.join(app.parentPath, app.name),
                 devPort: pkgJson.app_meta_data.devPort,
             });
         } catch (error) {
