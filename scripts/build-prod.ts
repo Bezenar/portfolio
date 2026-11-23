@@ -6,13 +6,13 @@ import { getConfig, getServicesManifest } from '@portfolio/core';
 class ProdProcesses {
     private readonly CONFIG = getConfig();
     private readonly SERVICES = getServicesManifest();
-    private readonly SHELL_APP = this.SERVICES.find((service) => service.name === 'shell');
+    private readonly SHELL_APP = this.SERVICES.find((service) => service.name === 'shell-ui');
     private readonly APP_DIRECTORIES = readdirSync(this.CONFIG.MFE_DIR, {
         withFileTypes: true,
     }).filter((entry) => entry.isDirectory());
 
     constructor() {
-        if (!this.SHELL_APP || this.SERVICES.length !== this.APP_DIRECTORIES.length) {
+        if (!this.SHELL_APP || this.SERVICES.length - 1 !== this.APP_DIRECTORIES.length) {
             throw new Error(
                 'Cannot build: shell is missing or one or more MFE manifests are invalid.',
             );
@@ -51,7 +51,8 @@ class ProdProcesses {
 
     private copyServicesToPublicDir() {
         for (const service of this.SERVICES) {
-            if (service.name === 'shell') continue;
+            if (service.name === 'shell-ui') continue;
+
             cpSync(
                 path.join(service.directory, 'dist'),
                 path.join(this.CONFIG.PUBLIC_DIR, 'mfe', service.name),

@@ -14,7 +14,7 @@ const devMfeProxy: FastifyPluginAsync = async (server) => {
         };
 
         // Special handling for the shell service to render shell at root route
-        if (service.name === 'shell') {
+        if (service.name === 'shell-ui') {
             server.register(httpProxy, {
                 ...mainConfig,
                 preHandler: (request, reply, done) => {

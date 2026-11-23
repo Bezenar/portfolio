@@ -2,15 +2,15 @@ import { T_ServiceManifestItem } from '../types.js';
 import prettyLog from './prettyLog.js';
 
 export default function isPortsUniq(apps: T_ServiceManifestItem[]): boolean {
-    const ports: Record<number, string> = {};
+    const ports: Map<number, string> = new Map();
 
     for (const app of apps) {
-        if (ports[app.devPort]) {
-            prettyLog(`Port ${app.devPort} is already used by ${ports[app.devPort]}`, 'error');
+        if (ports.has(app.devPort)) {
+            prettyLog(`Port ${app.devPort} is already used by ${ports.get(app.devPort)}`, 'error');
             return false;
         }
 
-        ports[app.devPort] = app.name;
+        ports.set(app.devPort, app.name);
     }
 
     return true;

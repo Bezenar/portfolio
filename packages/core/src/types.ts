@@ -7,6 +7,7 @@ export type T_Config = {
     HOST: string;
     ROOT_DIR: string;
     SERVER_DIR: string;
+    SHELL_UI_DIR: string;
     MFE_DIR: string;
     PACKAGES_DIR: string;
     PUBLIC_DIR: string;

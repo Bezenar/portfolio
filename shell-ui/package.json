@@ -1,9 +1,9 @@
 {
-    "name": "@portfolio/shell",
+    "name": "@portfolio/shell-ui",
     "description": "Shell application for the portfolio project",
     "app_meta_data": {
         "title": "Shell",
-        "route": "/shell",
+        "route": "/",
         "framework": "vite",
         "src": "/",
         "devPort": 4000

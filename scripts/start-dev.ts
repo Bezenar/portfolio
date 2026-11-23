@@ -14,7 +14,7 @@ class DevProcesses {
     private readonly services: readonly T_ServiceManifestItem[] = getServicesManifest();
 
     constructor() {
-        if (!this.services.some((service) => service.name === 'shell')) {
+        if (!this.services.some((service) => service.name === 'shell-ui')) {
             throw new Error('Shell is missing from the services manifest');
         }
     }

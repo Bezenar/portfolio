@@ -1,5 +1,6 @@
 import type { T_ServiceManifestItem } from '../types.js';
 import getConfig from './getConfig.js';
+import isNamesUniq from './isNamesUniq.js';
 import path from 'node:path';
 import { readdirSync, readFileSync } from 'node:fs';
 import isValidAppMetaData from './isValidAppMetaData.js';
@@ -15,7 +16,17 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
 
     const CONFIG = getConfig();
     const services = readdirSync(CONFIG.MFE_DIR, { withFileTypes: true });
+    const shellUI = readdirSync(CONFIG.ROOT_DIR, { withFileTypes: true })?.find(
+        (entry) => entry.name === 'shell-ui' && entry.isDirectory(),
+    );
     const entries: T_ServiceManifestItem[] = [];
+
+    if (!shellUI) {
+        prettyLog('No shell-ui directory found or it is empty.', 'error');
+        return [];
+    }
+
+    services.push(shellUI);
 
     for (const app of services) {
         if (!app.isDirectory()) continue;
@@ -54,6 +65,11 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
 
     if (!isPortsUniq(entries)) {
         prettyLog('Duplicate ports found in the services manifest. Skipping...', 'error');
+        return [];
+    }
+
+    if (!isNamesUniq(entries)) {
+        prettyLog('Duplicate names found in the services manifest. Skipping...', 'error');
         return [];
     }
 

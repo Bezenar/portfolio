@@ -12,6 +12,7 @@ export default function getConfig(): T_Config {
         HOST: process.env.HOST || '0.0.0.0',
         ROOT_DIR: getRootDir(),
         SERVER_DIR: path.resolve(getRootDir(), 'server'),
+        SHELL_UI_DIR: path.resolve(getRootDir(), 'shell-ui'),
         MFE_DIR: path.resolve(getRootDir(), 'mfe'),
         PACKAGES_DIR: path.resolve(getRootDir(), 'packages'),
         PUBLIC_DIR: path.resolve(getRootDir(), 'server/public'),
