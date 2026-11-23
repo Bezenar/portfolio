@@ -1,33 +1,33 @@
-@use "variables" as vars;
+@use 'variables' as vars;
 
 .m {
-  @each $directionName, $direction in vars.$directions {
-    @each $step in vars.$space-steps {
-      &#{$direction}-#{$step} {
-        margin-#{$directionName}: $step * vars.$size-step;
-      }
-    }
-  }
-
-  @each $axis in vars.$axis-directions {
-    @each $step in vars.$space-steps {
-      &#{$axis}-#{$step} {
-        @if $axis == x {
-          margin-left: $step * vars.$size-step;
-          margin-right: $step * vars.$size-step;
-        } @else if $axis == y {
-          margin-top: $step * vars.$size-step;
-          margin-bottom: $step * vars.$size-step;
+    @each $directionName, $direction in vars.$directions {
+        @each $step in vars.$space-steps {
+            &#{$direction}-#{$step} {
+                margin-#{$directionName}: $step * vars.$size-step;
+            }
         }
-      }
     }
-  }
 
-  &a {
-    @each $step in vars.$space-steps {
-      &-#{$step} {
-        margin: $step * vars.$size-step;
-      }
+    @each $axis in vars.$axis-directions {
+        @each $step in vars.$space-steps {
+            &#{$axis}-#{$step} {
+                @if $axis == x {
+                    margin-left: $step * vars.$size-step;
+                    margin-right: $step * vars.$size-step;
+                } @else if $axis == y {
+                    margin-top: $step * vars.$size-step;
+                    margin-bottom: $step * vars.$size-step;
+                }
+            }
+        }
     }
-  }
+
+    &a {
+        @each $step in vars.$space-steps {
+            &-#{$step} {
+                margin: $step * vars.$size-step;
+            }
+        }
+    }
 }

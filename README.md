@@ -7,16 +7,16 @@ and styles live in separate packages.
 
 ## Project structure
 
-| Path                                                       | Purpose                                               |
-| ---------------------------------------------------------- | ----------------------------------------------------- |
-| [`server/`](./server/)                                     | Fastify server, health check, and development proxy   |
-| [`shell-ui/`](./shell-ui/)                                 | Main page built with Vite and TypeScript              |
-| [`mfe/react-rick-and-morty/`](./mfe/react-rick-and-morty/) | Example React application                             |
-| [`packages/core/`](./packages/core/)                       | Shared configuration, service discovery, and logging  |
-| [`packages/core-styles/`](./packages/core-styles/)         | Shared Sass utilities                                 |
-| [`scripts/start-dev.ts`](./scripts/start-dev.ts)           | Development server and MFE launcher                   |
-| [`scripts/build-prod.ts`](./scripts/build-prod.ts)         | Production build and static file preparation          |
-| [`docker/`](./docker/)                                     | Docker development and production configurations      |
+| Path                                                       | Purpose                                              |
+| ---------------------------------------------------------- | ---------------------------------------------------- |
+| [`server/`](./server/)                                     | Fastify server, health check, and development proxy  |
+| [`shell-ui/`](./shell-ui/)                                 | Main page built with Vite and TypeScript             |
+| [`mfe/react-rick-and-morty/`](./mfe/react-rick-and-morty/) | Example React application                            |
+| [`packages/core/`](./packages/core/)                       | Shared configuration, service discovery, and logging |
+| [`packages/core-styles/`](./packages/core-styles/)         | Shared Sass utilities                                |
+| [`scripts/start-dev.ts`](./scripts/start-dev.ts)           | Development server and MFE launcher                  |
+| [`scripts/build-prod.ts`](./scripts/build-prod.ts)         | Production build and static file preparation         |
+| [`docker/`](./docker/)                                     | Docker development and production configurations     |
 
 ## Quick start with Docker
 
@@ -70,6 +70,41 @@ By default, the server listens on port `3000`, shell on `4000`, and the React
 application on `5001`. The included Vite applications read their ports from
 `app_meta_data.devPort` and use `strictPort`, so they do not automatically
 switch ports if one is occupied.
+
+## Linting
+
+Run Oxlint for the repository or for the React workspace:
+
+```bash
+npm run lint
+npm run lint --workspace react-rick-and-morty
+```
+
+The root configuration contains shared JavaScript and TypeScript rules; the
+React-specific rules apply only to `mfe/react-rick-and-morty/`. When adding an
+MFE that needs framework-specific rules, add a matching override or a nested
+config that extends the root configuration. Oxlint checks only script blocks
+in Vue and Svelte files, not their templates or styles.
+
+## Formatting
+
+Format supported files across the repository, or check them without changes:
+
+```bash
+npm run format
+npm run format:check
+```
+
+Both commands also work for individual workspaces, for example:
+
+```bash
+npm run format --workspace @portfolio/core
+npm run format:check --workspace react-rick-and-morty
+```
+
+Oxfmt uses the root configuration. Formatting writes files in place; the check
+command reports files that need formatting and exits with a non-zero status.
+Ignored build output and dependency directories are not formatted.
 
 ## Tests
 
@@ -135,13 +170,13 @@ a limit of 200 requests per minute, and the `Content-Security-Policy` and
 
 ### Metadata fields
 
-| Field | Type | Purpose |
-| ----- | ---- | ------- |
-| `title` | string | Human-readable application name, intended for display in the shell. Currently only stored in the manifest. |
-| `route` | string | Intended route within the shell, for example `/example`. Shell navigation is not implemented yet; this field is currently only stored in the manifest. |
-| `framework` | string | Identifies the application's framework or tooling, for example `react` or `vite`. Currently only stored in the manifest. |
-| `src` | string | Browser-accessible application URL, intended for use by the shell. Currently only stored in the manifest; the shell iframe uses a hard-coded URL instead. |
-| `devPort` | number | Integer port from 1 to 65535 for the application's development server. The proxy uses it to forward requests, and it must be unique among applications. |
+| Field       | Type   | Purpose                                                                                                                                                   |
+| ----------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`     | string | Human-readable application name, intended for display in the shell. Currently only stored in the manifest.                                                |
+| `route`     | string | Intended route within the shell, for example `/example`. Shell navigation is not implemented yet; this field is currently only stored in the manifest.    |
+| `framework` | string | Identifies the application's framework or tooling, for example `react` or `vite`. Currently only stored in the manifest.                                  |
+| `src`       | string | Browser-accessible application URL, intended for use by the shell. Currently only stored in the manifest; the shell iframe uses a hard-coded URL instead. |
+| `devPort`   | number | Integer port from 1 to 65535 for the application's development server. The proxy uses it to forward requests, and it must be unique among applications.   |
 
 For example, the shell could eventually use `route` to select an application
 and `src` to load it in an iframe. The proxy itself builds the URL path from
