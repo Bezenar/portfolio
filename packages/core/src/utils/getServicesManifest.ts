@@ -6,7 +6,13 @@ import isValidAppMetaData from './isValidAppMetaData.js';
 import prettyLog from './prettyLog.js';
 import isPortsUniq from './isPortsUniq.js';
 
+let cachedResult: T_ServiceManifestItem[] | null = null;
+
 export default function getServicesManifest(): T_ServiceManifestItem[] {
+    if (cachedResult) {
+        return cachedResult;
+    }
+
     const CONFIG = getConfig();
     const services = readdirSync(CONFIG.MFE_DIR, { withFileTypes: true });
     const entries: T_ServiceManifestItem[] = [];
@@ -50,6 +56,8 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
         prettyLog('Duplicate ports found in the services manifest. Skipping...', 'error');
         return [];
     }
+
+    cachedResult = entries;
 
     return entries;
 }
