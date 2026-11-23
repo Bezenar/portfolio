@@ -1,5 +1,6 @@
 {
     "name": "react-rick-and-morty",
+    "description": "React Rick and Morty microfrontend for the portfolio project",
     "app_meta_data": {
         "title": "React Rick and Morty",
         "route": "/react-rick-and-morty",
@@ -7,8 +8,10 @@
         "src": "/mfe/react-rick-and-morty/",
         "devPort": 5001
     },
-    "private": true,
     "version": "0.0.0",
+    "private": true,
+    "license": "ISC",
+    "author": "Maxim Bezhenar",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -26,7 +29,6 @@
         "@types/react-dom": "^19.3.0",
         "@vitejs/plugin-react": "^6.1.2",
         "oxlint": "^1.90.0",
-        "typescript": "~7.0.2",
         "vite": "^8.3.6"
     }
 }

@@ -1,8 +1,8 @@
 {
     "name": "@portfolio/core-styles",
-    "private": true,
-    "version": "1.0.0",
     "description": "Shared styles for the portfolio project",
+    "version": "1.0.0",
+    "private": true,
     "license": "ISC",
     "author": "Maxim Bezhenar",
     "type": "module",

@@ -1,5 +1,21 @@
 {
     "name": "portfolio",
+    "description": "My personal playground as portfolio",
+    "version": "1.0.0",
+    "private": true,
+    "license": "ISC",
+    "author": "Maxim Bezhenar",
+    "type": "module",
+    "keywords": [
+        "portfolio"
+    ],
+    "bugs": {
+        "url": "https://github.com/Bezenar/portfolio/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Bezenar/portfolio.git"
+    },
     "workspaces": [
         "packages/*",
         "mfe/*",
@@ -19,20 +35,5 @@
         "@types/node": "26.6.6",
         "tsx": "4.23.15",
         "typescript": "7.0.2"
-    },
-    "version": "1.0.0",
-    "description": "My personal playground as portfolio",
-    "keywords": [
-        "portfolio"
-    ],
-    "bugs": {
-        "url": "https://github.com/Bezenar/portfolio/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Bezenar/portfolio.git"
-    },
-    "license": "ISC",
-    "author": "Maxim Bezhenar",
-    "type": "module"
+    }
 }

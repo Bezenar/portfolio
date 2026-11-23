@@ -1,7 +1,10 @@
 {
     "name": "@portfolio/core",
-    "private": true,
+    "description": "Shared configuration and service discovery for the portfolio project",
     "version": "1.0.0",
+    "private": true,
+    "license": "ISC",
+    "author": "Maxim Bezhenar",
     "type": "module",
     "exports": {
         ".": {
@@ -17,7 +20,6 @@
         "build": "tsc -p tsconfig.json"
     },
     "devDependencies": {
-        "@types/node": "26.6.6",
-        "typescript": "7.0.2"
+        "@types/node": "26.6.6"
     }
 }

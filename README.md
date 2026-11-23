@@ -11,8 +11,9 @@ shared utilities and styles live in separate packages.
 | [`server/`](./server/)                                     | Fastify server, health check, and development proxy   |
 | [`mfe/shell/`](./mfe/shell/)                               | Main page built with Vite and TypeScript              |
 | [`mfe/react-rick-and-morty/`](./mfe/react-rick-and-morty/) | Example React application                             |
-| [`packages/core/`](./packages/core/)                       | Configuration, service manifest, and shared utilities |
+| [`packages/core/`](./packages/core/)                       | Shared configuration, service discovery, and logging  |
 | [`packages/core-styles/`](./packages/core-styles/)         | Shared Sass utilities                                 |
+| [`packages/utils/`](./packages/utils/)                     | Placeholder for shared utilities                      |
 | [`scripts/start-dev.ts`](./scripts/start-dev.ts)           | Development server and MFE launcher                   |
 | [`scripts/build-prod.ts`](./scripts/build-prod.ts)         | Production build and static file preparation          |
 | [`docker/`](./docker/)                                     | Docker development and production configurations      |

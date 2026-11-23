@@ -1,5 +1,6 @@
 {
     "name": "@portfolio/shell",
+    "description": "Shell application for the portfolio project",
     "app_meta_data": {
         "title": "Shell",
         "route": "/shell",
@@ -7,8 +8,10 @@
         "src": "/",
         "devPort": 4000
     },
-    "private": true,
     "version": "0.0.0",
+    "private": true,
+    "license": "ISC",
+    "author": "Maxim Bezhenar",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -18,7 +21,6 @@
     "devDependencies": {
         "@portfolio/core-styles": "1.0.0",
         "sass": "1.108.2",
-        "typescript": "~7.0.2",
         "vite": "^8.3.6"
     }
 }
