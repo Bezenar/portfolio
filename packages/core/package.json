@@ -17,7 +17,8 @@
         }
     },
     "scripts": {
-        "build": "tsc -p tsconfig.json"
+        "build": "tsc -p tsconfig.json",
+        "test": "vitest run --config ../../vitest.config.ts packages/core/"
     },
     "devDependencies": {
         "@types/node": "26.6.6"

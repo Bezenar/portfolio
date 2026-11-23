@@ -71,6 +71,30 @@ application on `5001`. The included Vite applications read their ports from
 `app_meta_data.devPort` and use `strictPort`, so they do not automatically
 switch ports if one is occupied.
 
+## Tests
+
+Run all workspace tests once, or watch for changes:
+
+```bash
+npm test
+npm run test:watch
+```
+
+Run tests for an individual workspace:
+
+```bash
+npm test --workspace @portfolio/server
+npm test --workspace @portfolio/shell-ui
+npm test --workspace react-rick-and-morty
+npm test --workspace @portfolio/core
+npm test --workspace @portfolio/core-styles
+```
+
+Vitest uses Node.js for server and package tests and jsdom for shell and MFE
+tests. Test files can be named `*.test.ts`, `*.spec.ts`, or use the equivalent
+JavaScript and JSX/TSX extensions. The example tests are starting points, not
+application coverage. Vitest does not replace TypeScript type-checking.
+
 ## Development routes
 
 | URL through the server       | Purpose                |
