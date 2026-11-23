@@ -40,6 +40,7 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
 
     if (!shellUI) {
         prettyLog('No shell-ui directory found or it is empty.', 'error');
+
         return [];
     }
 
@@ -61,6 +62,7 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
                     `Invalid app metadata for ${app.name}. Expected strings for title, route, framework and src, and an integer devPort between 1 and 65535. Skipping...`,
                     'error',
                 );
+
                 continue;
             }
 
@@ -76,17 +78,20 @@ export default function getServicesManifest(): T_ServiceManifestItem[] {
             });
         } catch (error) {
             prettyLog(`Failed to read or parse package.json for ${app.name}: ${error}`, 'error');
+
             continue;
         }
     }
 
     if (!isPortsUniq(entries)) {
         prettyLog('Duplicate ports found in the services manifest. Skipping...', 'error');
+
         return [];
     }
 
     if (!isNamesUniq(entries)) {
         prettyLog('Duplicate names found in the services manifest. Skipping...', 'error');
+
         return [];
     }
 

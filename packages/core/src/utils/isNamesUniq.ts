@@ -23,6 +23,7 @@ export default function isNamesUniq(apps: T_ServiceManifestItem[]): boolean {
     for (const app of apps) {
         if (names.has(app.name)) {
             prettyLog(`Name ${app.name} is already used`, 'error');
+
             return false;
         }
 

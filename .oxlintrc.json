@@ -1,6 +1,17 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
     "plugins": ["typescript", "oxc"],
+    "jsPlugins": ["@stylistic/eslint-plugin"],
+    "rules": {
+        "@stylistic/padding-line-between-statements": [
+            "error",
+            { "blankLine": "always", "prev": "*", "next": ["return", "continue", "break"] }
+        ],
+        "@stylistic/lines-between-class-members": [
+            "error",
+            { "enforce": [{ "blankLine": "always", "prev": "method", "next": "method" }] }
+        ]
+    },
     "overrides": [
         {
             "files": ["mfe/react-rick-and-morty/**"],

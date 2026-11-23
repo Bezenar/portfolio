@@ -26,6 +26,7 @@
         "dev": "tsx --conditions=development scripts/start-dev.ts",
         "build": "tsx --conditions=development scripts/build-prod.ts",
         "lint": "oxlint",
+        "lint:fix": "oxlint --fix",
         "format": "oxfmt .",
         "format:check": "oxfmt --check .",
         "test": "vitest run",
@@ -38,6 +39,7 @@
     },
     "devDependencies": {
         "@portfolio/core": "1.0.0",
+        "@stylistic/eslint-plugin": "6.0.1",
         "@types/node": "26.6.6",
         "jsdom": "29.1.1",
         "oxfmt": "0.80.0",

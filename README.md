@@ -86,6 +86,10 @@ MFE that needs framework-specific rules, add a matching override or a nested
 config that extends the root configuration. Oxlint checks only script blocks
 in Vue and Svelte files, not their templates or styles.
 
+The `@stylistic` plugin requires a blank line before a `return` that follows
+another statement and between consecutive class methods. Oxlint's JavaScript
+plugin support is currently in alpha.
+
 ## Formatting
 
 Format supported files across the repository, or check them without changes:

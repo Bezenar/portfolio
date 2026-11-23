@@ -25,6 +25,7 @@ const devMfeProxy: FastifyPluginAsync = async (server) => {
 
                     if (isNotAvailable) {
                         reply.status(404).send({ error: 'Not Found' });
+
                         return;
                     }
 
