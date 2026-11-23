@@ -9,6 +9,23 @@ import isPortsUniq from './isPortsUniq.js';
 
 let cachedResult: T_ServiceManifestItem[] | null = null;
 
+/**
+ * @description Discovers the root shell-ui and directories under mfe, reading
+ * their package metadata into a service manifest. Invalid or unreadable package
+ * files are logged and skipped. A missing shell-ui or duplicate service names
+ * or ports is logged and returns an empty array without caching it. Successful
+ * results are cached and returned by reference on subsequent calls.
+ *
+ * @returns The discovered services, or an empty array if validation fails.
+ *
+ * @throws If the root or mfe directory cannot be read.
+ *
+ * @example
+ * const services = getServicesManifest();
+ * for (const service of services) {
+ *     console.log(service.name, service.devPort);
+ * }
+ */
 export default function getServicesManifest(): T_ServiceManifestItem[] {
     if (cachedResult) {
         return cachedResult;

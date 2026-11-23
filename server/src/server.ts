@@ -29,9 +29,11 @@ server.get('/health', () => {
     return { status: 'ok' };
 });
 
+// Register development MFE proxy in development mode.
 if (CONFIG.IS_DEV) {
     server.register(devMfeProxy);
 } else {
+    // Serve static files from the public directory in production mode.
     server.register(fastifyStatic, {
         root: CONFIG.PUBLIC_DIR,
         prefix: '/',
@@ -40,6 +42,7 @@ if (CONFIG.IS_DEV) {
     });
 }
 
+// Handle 404 errors and serve the index.html for navigation requests in production.
 server.setNotFoundHandler((req, reply) => {
     const isApi = req.url.startsWith(CONFIG.API_PREFIX);
     const isMfe = req.url.startsWith(CONFIG.MFE_PREFIX);
@@ -47,9 +50,18 @@ server.setNotFoundHandler((req, reply) => {
     const pathname = req.url.split('?')[0] ?? '';
     const isAsset = pathname === '/assets' || pathname.startsWith('/assets/');
     const isNavigation =
-        req.headers.accept?.includes('text/html') && !isAsset && !path.basename(pathname).includes('.');
+        req.headers.accept?.includes('text/html') &&
+        !isAsset &&
+        !path.basename(pathname).includes('.');
 
-    if (CONFIG.IS_PROD && (req.method === 'GET' || req.method === 'HEAD') && !isApi && !isMfe && isNavigation) {
+    // Serve index.html for navigation requests in production.
+    if (
+        CONFIG.IS_PROD &&
+        (req.method === 'GET' || req.method === 'HEAD') &&
+        !isApi &&
+        !isMfe &&
+        isNavigation
+    ) {
         return reply.header('Cache-Control', 'no-cache').sendFile('index.html');
     }
 

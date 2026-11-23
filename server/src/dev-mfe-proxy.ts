@@ -31,6 +31,7 @@ const devMfeProxy: FastifyPluginAsync = async (server) => {
                     done();
                 },
             });
+
             continue;
         }
 
