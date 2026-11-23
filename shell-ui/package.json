@@ -16,6 +16,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
+        "format": "oxfmt .",
+        "format:check": "oxfmt --check .",
         "test": "vitest run --config ../vitest.config.ts shell-ui/",
         "preview": "vite preview"
     },

@@ -16,7 +16,9 @@
     },
     "scripts": {
         "build:utility": "sass src/utility/index.scss dist/utility.css --no-source-map --style=compressed",
-        "dev:utility": "sass --watch src/utility/index.scss _temp/utility.css"
+        "dev:utility": "sass --watch src/utility/index.scss _temp/utility.css",
+        "format": "oxfmt .",
+        "format:check": "oxfmt --check ."
     },
     "devDependencies": {
         "sass": "1.108.2"

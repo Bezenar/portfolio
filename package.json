@@ -25,6 +25,9 @@
     "scripts": {
         "dev": "tsx --conditions=development scripts/start-dev.ts",
         "build": "tsx --conditions=development scripts/build-prod.ts",
+        "lint": "oxlint",
+        "format": "oxfmt .",
+        "format:check": "oxfmt --check .",
         "test": "vitest run",
         "test:watch": "vitest",
         "start": "NODE_ENV=production node server/dist/server.js",
@@ -37,6 +40,8 @@
         "@portfolio/core": "1.0.0",
         "@types/node": "26.6.6",
         "jsdom": "29.1.1",
+        "oxfmt": "0.80.0",
+        "oxlint": "1.90.0",
         "tsx": "4.23.15",
         "typescript": "7.0.2",
         "vitest": "5.1.1"
