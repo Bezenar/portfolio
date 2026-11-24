@@ -119,6 +119,18 @@ npm test
 npm run test:watch
 ```
 
+Run tests with coverage for the whole repository or an individual workspace:
+
+```bash
+npm run test:coverage
+npm run test:coverage --workspace @portfolio/shell-ui
+```
+
+The HTML reports are written under `coverage/all/` and `coverage/<workspace>/`,
+respectively. Each run replaces its own report. Coverage includes untested
+JavaScript and TypeScript source files, but not stylesheets. A workspace without
+tests exits with an error until tests are added.
+
 Run tests for an individual workspace:
 
 ```bash
@@ -126,7 +138,6 @@ npm test --workspace @portfolio/server
 npm test --workspace @portfolio/shell-ui
 npm test --workspace react-rick-and-morty
 npm test --workspace @portfolio/core
-npm test --workspace @portfolio/core-styles
 ```
 
 Vitest uses Node.js for server and package tests and jsdom for shell and MFE

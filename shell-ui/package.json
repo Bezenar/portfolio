@@ -19,6 +19,7 @@
         "format": "oxfmt .",
         "format:check": "oxfmt --check .",
         "test": "vitest run --config ../vitest.config.ts shell-ui/",
+        "test:coverage": "vitest run --config ../vitest.config.ts --coverage.enabled --coverage.include='shell-ui/src/**/*.{js,jsx,ts,tsx}' --coverage.reportsDirectory=coverage/shell-ui shell-ui/",
         "preview": "vite preview"
     },
     "devDependencies": {

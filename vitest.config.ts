@@ -11,6 +11,15 @@ export default defineConfig({
     //     noExternal: ['@portfolio/core'],
     // },
     test: {
+        coverage: {
+            include: [
+                'server/src/**/*.{js,jsx,ts,tsx}',
+                'shell-ui/src/**/*.{js,jsx,ts,tsx}',
+                'mfe/*/src/**/*.{js,jsx,ts,tsx}',
+                'packages/*/src/**/*.{js,jsx,ts,tsx}',
+            ],
+            exclude: ['**/*.{test,spec}.{js,jsx,ts,tsx}', '**/*.d.ts'],
+        },
         projects: [
             {
                 test: {

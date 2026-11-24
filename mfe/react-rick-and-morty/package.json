@@ -17,6 +17,7 @@
         "dev": "vite",
         "build": "tsc -b && vite build",
         "test": "vitest run --config ../../vitest.config.ts mfe/react-rick-and-morty/",
+        "test:coverage": "vitest run --config ../../vitest.config.ts --coverage.enabled --coverage.include='mfe/react-rick-and-morty/src/**/*.{js,jsx,ts,tsx}' --coverage.reportsDirectory=coverage/mfe/react-rick-and-morty mfe/react-rick-and-morty/",
         "lint": "oxlint --config ../../.oxlintrc.json .",
         "lint:fix": "oxlint --config ../../.oxlintrc.json --fix .",
         "format": "oxfmt .",
