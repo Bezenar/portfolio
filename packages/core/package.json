@@ -21,6 +21,7 @@
         "format": "oxfmt .",
         "format:check": "oxfmt --check .",
         "test": "vitest run --config ../../vitest.config.ts packages/core/",
+        "test:watch": "vitest --config ../../vitest.config.ts packages/core/",
         "test:coverage": "vitest run --config ../../vitest.config.ts --coverage.enabled --coverage.include='packages/core/src/**/*.{js,jsx,ts,tsx}' --coverage.reportsDirectory=coverage/packages/core packages/core/"
     },
     "devDependencies": {

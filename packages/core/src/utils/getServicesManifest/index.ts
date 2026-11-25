@@ -1,11 +1,11 @@
-import type { T_ServiceManifestItem } from '../types.js';
-import getConfig from './getConfig.js';
-import isNamesUniq from './isNamesUniq.js';
+import type { T_ServiceManifestItem } from '../../types.js';
+import getConfig from '../getConfig/index.js';
+import isNamesUniq from '../isNamesUniq/index.js';
 import path from 'node:path';
 import { readdirSync, readFileSync } from 'node:fs';
-import isValidAppMetaData from './isValidAppMetaData.js';
-import prettyLog from './prettyLog.js';
-import isPortsUniq from './isPortsUniq.js';
+import isValidAppMetaData from '../isValidAppMetaData/index.js';
+import prettyLog from '../prettyLog/index.js';
+import isPortsUniq from '../isPortsUniq/index.js';
 
 let cachedResult: T_ServiceManifestItem[] | null = null;
 

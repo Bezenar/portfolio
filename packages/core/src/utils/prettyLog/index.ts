@@ -1,6 +1,6 @@
-import { LogType } from '../types.js';
+import { LogType } from '../../types.js';
 
-const colors: Record<LogType, string> = {
+export const colors: Record<LogType, string> = {
     default: '\x1b[0m',
     success: '\x1b[32m',
     error: '\x1b[31m',

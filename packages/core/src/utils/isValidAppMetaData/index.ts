@@ -1,4 +1,4 @@
-import { T_ServiceManifestItem } from '../types.js';
+import { T_ServiceManifestItem } from '../../types.js';
 
 const stringKeys = ['title', 'route', 'framework', 'src'] as const;
 

@@ -1,5 +1,5 @@
-import { T_ServiceManifestItem } from '../types.js';
-import prettyLog from './prettyLog.js';
+import { T_ServiceManifestItem } from '../../types.js';
+import prettyLog from '../prettyLog/index.js';
 
 /**
  * @description Checks service names for exact duplicates. Logs the first

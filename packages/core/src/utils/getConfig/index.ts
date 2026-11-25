@@ -1,5 +1,5 @@
-import { T_Config } from '../types.js';
-import getRootDir from './getRootDir.js';
+import { T_Config } from '../../types.js';
+import getRootDir from '../getRootDir/index.js';
 import path from 'node:path';
 
 /**
