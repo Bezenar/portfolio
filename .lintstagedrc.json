@@ -1,0 +1,5 @@
+{
+    "*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue}": ["oxfmt", "oxlint"],
+    "*.{svelte,astro}": "oxlint",
+    "*.{json,jsonc,json5,css,scss,less,html,md,mdx,yaml,yml}": "oxfmt"
+}

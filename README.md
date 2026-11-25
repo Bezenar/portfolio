@@ -110,6 +110,13 @@ Oxfmt uses the root configuration. Formatting writes files in place; the check
 command reports files that need formatting and exits with a non-zero status.
 Ignored build output and dependency directories are not formatted.
 
+After `npm ci`, the Husky pre-commit hook formats staged JavaScript, TypeScript
+and Vue files before linting them with Oxlint. It also lints Svelte and Astro
+files and formats JSON, stylesheet, HTML, Markdown and YAML files. Formatting
+changes are added to the commit, while unstaged changes remain outside it. A
+formatter or lint error stops the commit. The hook requires Node.js 22.22.1 or
+later.
+
 ## Tests
 
 Run all workspace tests once, or watch for changes:
